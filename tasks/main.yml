@@ -74,9 +74,12 @@
 
 - name: "Get Total Private IP Addresses"
   set_fact:
-    total_private_ip_addresses: "{{ ansible_all_ipv4_addresses | ipaddr('private') | length }}"
+    ansible_all_ipv4_addresses: "{{ ansible_all_ipv4_addresses | ipaddr('private') | length }}"
   when:
     - ansible_all_ipv4_addresses is defined
+
+- debug:
+    var: ansible_all_ipv4_addresses
 
 - name: "Set first public ip address for zabbix_agent_ip"
   set_fact:
