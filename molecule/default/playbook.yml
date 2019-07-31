@@ -35,4 +35,6 @@
       changed_when: false
 
   roles:
+    - role: ansible_role_repo_epel
+    - role: ansible-role.ansible_role_pip
     - role: ansible-role.zabbix-agent
