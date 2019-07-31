@@ -43,7 +43,7 @@
     state: "{{ item.state | default('present') }}"
   with_items: "{{ zabbix_repo_yum }}"
   register: yum_repo_installed
-  become: yes
+  become: true
   when:
     zabbix_repo == "zabbix"
   tags:
@@ -54,7 +54,7 @@
   args:
     warn: False
   when: yum_repo_installed.changed
-  become: yes
+  become: true
   tags:
     - skip_ansible_lint
 
@@ -67,7 +67,7 @@
     state: "{{ zabbix_agent_package_state }}"
   register: zabbix_agent_package_installed
   until: zabbix_agent_package_installed is succeeded
-  become: yes
+  become: true
   tags:
     - init
     - zabbix-agent
@@ -79,7 +79,7 @@
   register: zabbix_agent_policycoreutils_installed
   until: zabbix_agent_package_installed is succeeded
   when: zabbix_selinux | bool
-  become: yes
+  become: true
   tags:
     - init
     - zabbix-agent
@@ -87,9 +87,9 @@
 - name: "RedHat | Enable the service"
   service:
     name: "{{ zabbix_agent_service }}"
-    enabled: yes
+    enabled: true
     use: service
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init

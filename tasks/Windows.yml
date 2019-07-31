@@ -35,13 +35,13 @@
 
 - name: "Windows | Checking Update (Set default)"
   set_fact:
-    update_zabbix_agent: False
+    update_zabbix_agent: false
   when:
     - agent_file_info.stat.exists
 
 - name: "Windows | Checking Update"
   set_fact:
-    update_zabbix_agent: True
+    update_zabbix_agent: true
   when:
     - agent_file_info.stat.exists
     - zabbix_win_exe_info.win_file_version.product_version is version(zabbix_version_long, '<')
@@ -88,7 +88,7 @@
   win_get_url:
     url: "{{ zabbix_win_download_link }}"
     dest: '{{ zabbix_win_install_dir }}\{{ zabbix_win_package }}'
-    force: False
+    force: false
   register: zabbix_agent_win_download_zip
   until: zabbix_agent_win_download_zip is succeeded
 
