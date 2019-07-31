@@ -178,7 +178,7 @@
   when:
     - zabbix_api_create_hostgroup | bool
   delegate_to: localhost
-  become: no
+  become: false
   tags:
     - api
 
@@ -207,7 +207,7 @@
   when:
     - zabbix_api_create_hosts | bool
   delegate_to: localhost
-  become: no
+  become: false
   changed_when: false
   tags:
     - api
@@ -227,7 +227,7 @@
     - zabbix_macros is defined
     - item.macro_key is defined
   delegate_to: localhost
-  become: no
+  become: false
   tags:
     - api
 
