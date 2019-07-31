@@ -38,6 +38,6 @@ galaxy_info:
   galaxy_tags:
     - zabbix
     - monitoring
-dependencies:
-  - chauanhtuandl.pip
-  - chauanhtuandl.repo_epel
+# dependencies:
+#   - chauanhtuandl.pip
+#   - chauanhtuandl.repo_epel
