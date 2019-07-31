@@ -2,7 +2,6 @@
 - name: Converge
   hosts: all
 
-  
   vars:
     # Variable for add host to zabbix server
     zabbix_url: "http://zabbix.dj-wasabi.local"
