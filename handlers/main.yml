@@ -5,8 +5,8 @@
   service:
     name: "{{ zabbix_agent_service }}"
     state: restarted
-    enabled: yes
-  become: yes
+    enabled: true
+  become: true
   when:
     - not zabbix_agent_docker
 
@@ -17,4 +17,4 @@
   win_service:
     name: "{{ zabbix_win_agent_service }}"
     state: restarted
-    enabled: yes
+    enabled: true
