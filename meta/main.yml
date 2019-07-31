@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: zabbix-agent
   author: Werner Dijkerman
   description: Installing and maintaining zabbix-agent for RedHat/Debian/Ubuntu/Windows/Suse.
   company: myCompany.Dotcom
