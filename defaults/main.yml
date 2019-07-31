@@ -98,7 +98,7 @@ zabbix_agent_userparameters: []
 zabbix_agent_custom_scripts: false
 zabbix_agent_loadmodulepath: ${libdir}/modules
 zabbix_agent_loadmodule:
-zabbix_agent_become_on_localhost: True
+zabbix_agent_become_on_localhost: true
 
 # TLS settings
 zabbix_agent_tlsconnect:
@@ -124,7 +124,7 @@ zabbix_win_download_link: "{{ zabbix_win_download_url }}/{{ zabbix_version_long 
 zabbix_win_install_dir: 'C:\Zabbix'
 zabbix_agent_win_logfile: 'C:\Zabbix\zabbix_agentd.log'
 zabbix_agent_win_include: 'C:\Zabbix\zabbix_agent.d\'
-zabbix_agent_win_svc_recovery: True
+zabbix_agent_win_svc_recovery: true
 
 # Zabbix Agent Docker facts
 zabbix_agent_docker: false
