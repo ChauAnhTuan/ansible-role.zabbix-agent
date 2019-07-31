@@ -1,3 +1,6 @@
 ---
-- name: common
+- name: ansible_role_repo_epel
+  src: chauanhtuandl.ansible_role_repo_epel
+
+- name: ansible_role_pip
   src: chauanhtuandl.ansible_role_pip
