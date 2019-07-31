@@ -4,4 +4,3 @@
 
 - name: ansible_role_pip
   src: chauanhtuandl.pip
-
