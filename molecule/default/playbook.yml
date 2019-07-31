@@ -38,4 +38,4 @@
     - role: ansible_role_repo_epel
       when: ansible_os_family == 'RedHat'
     - role: ansible_role_pip
-    - role: ansible-role.zabbix-agent
+    - role: chauanhtuandl.zabbix-agent
