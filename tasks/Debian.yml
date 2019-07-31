@@ -15,7 +15,7 @@
     url: http://repo.zabbix.com/zabbix-official-repo.key
   when:
     - zabbix_repo == "zabbix"
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init
@@ -26,7 +26,7 @@
     patterns: repo_zabbix_com_zabbix*.list
     excludes: "repo_zabbix_com_zabbix_{{ zabbix_underscore_version }}_ubuntu.list"
   register: repositories
-  become: yes
+  become: true
   when:
     - ansible_distribution == "Ubuntu"
     - zabbix_repo == "zabbix"
@@ -42,7 +42,7 @@
   when:
     - ansible_distribution == "Ubuntu"
     - zabbix_repo == "zabbix"
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init
@@ -54,7 +54,7 @@
   when:
     - ansible_distribution == "Ubuntu"
     - zabbix_repo == "zabbix"
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init
@@ -66,7 +66,7 @@
   when:
     - ansible_distribution == "Debian"
     - zabbix_repo == "zabbix"
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init
@@ -78,7 +78,7 @@
   when:
     - ansible_distribution == "Debian"
     - zabbix_repo == "zabbix"
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init
@@ -90,7 +90,7 @@
   when:
     - ansible_distribution == "Ubuntu"
     - zabbix_repo == "zabbix"
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init
@@ -106,15 +106,15 @@
       - "{{ zabbix_sender_package }}"
       - "{{ zabbix_get_package }}"
     state: "{{ zabbix_agent_package_state }}"
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 0
     force_apt_get: "{{ zabbix_apt_force_apt_get }}"
     install_recommends: "{{ zabbix_apt_install_recommends }}"
   when: ansible_distribution in ['Ubuntu', 'Debian']
   register: zabbix_agent_package_installed
   until: zabbix_agent_package_installed is succeeded
-  become: yes
-  check_mode: no
+  become: true
+  check_mode: false
   tags:
     - zabbix-agent
     - init
@@ -123,14 +123,14 @@
   apt:
     pkg: "zabbix-agent"
     state: "{{ zabbix_agent_package_state }}"
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 0
     force_apt_get: "{{ zabbix_apt_force_apt_get }}"
     install_recommends: "{{ zabbix_apt_install_recommends }}"
   when: ansible_distribution not in ['Ubuntu', 'Debian']
   register: zabbix_agent_package_installed
   until: zabbix_agent_package_installed is succeeded
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init
@@ -139,21 +139,21 @@
   apt:
     pkg: policycoreutils-python-utils
     state: installed
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 0
     force_apt_get: "{{ zabbix_apt_force_apt_get }}"
     install_recommends: "{{ zabbix_apt_install_recommends }}"
   register: zabbix_agent_policycoreutils_installed
   until: zabbix_agent_package_installed is succeeded
-  become: yes
+  become: true
   when: zabbix_selinux | bool
 
 - name: "Debian | Enable the service"
   service:
     name: "{{ zabbix_agent_service }}"
-    enabled: yes
+    enabled: true
     use: service
-  become: yes
+  become: true
   tags:
     - zabbix-agent
     - init

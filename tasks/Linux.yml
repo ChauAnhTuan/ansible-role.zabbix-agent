@@ -5,15 +5,15 @@
   stat:
     path: /usr/sbin/getenforce
   register: getenforce_bin
-  become: yes
+  become: true
 
 - name: "Collect getenforce output"
   command: getenforce
   register: sestatus
   when: 'getenforce_bin.stat.exists'
   changed_when: false
-  become: yes
-  check_mode: no
+  become: true
+  check_mode: false
 
 - name: "Set zabbix_selinux to true if getenforce returns Enforcing or Permissive"
   set_fact:
@@ -24,7 +24,7 @@
   selinux_permissive:
     name: zabbix_agent_t
     permissive: true
-  become: yes
+  become: true
   when:
     - zabbix_selinux | bool
 
@@ -33,7 +33,7 @@
     name: zabbix
     state: present
     gid: "{{ zabbix_agent_docker_user_gid | default(omit) }}"
-  become: yes
+  become: true
   when:
     - zabbix_agent_docker | bool
 
@@ -46,7 +46,7 @@
     home: /etc/zabbix
     uid: "{{ zabbix_agent_docker_user_uid | default(omit) }}"
     system: True
-  become: yes
+  become: true
   when:
     - zabbix_agent_docker | bool
 
@@ -59,7 +59,7 @@
     mode: 0644
   notify:
     - restart zabbix-agent
-  become: yes
+  become: true
   when:
     - not (zabbix_agent_docker | bool)
   tags:
@@ -72,7 +72,7 @@
     path: "{{ zabbix_agent_tlspskfile | dirname }}"
     mode: 0755
     state: directory
-  become: yes
+  become: true
   when:
     - zabbix_agent_tlspskfile is defined
 
@@ -83,7 +83,7 @@
     owner: zabbix
     group: zabbix
     mode: 0400
-  become: yes
+  become: true
   when:
     - zabbix_agent_tlspskfile is defined
     - zabbix_agent_tlspsk_secret is defined
@@ -96,7 +96,7 @@
     owner: root
     group: root
     state: directory
-  become: yes
+  become: true
   tags:
     - config
     - include
@@ -113,7 +113,7 @@
     protocol: tcp
     chain: INPUT
     jump: ACCEPT
-  become: yes
+  become: true
   when: zabbix_agent_firewall_enable | bool
 
 - name: "Configure IPTables (zabbix_agent_jmx_listenport)"
@@ -123,7 +123,7 @@
     protocol: tcp
     chain: INPUT
     jump: ACCEPT
-  become: yes
+  become: true
   when: (zabbix_agent_firewall_enable  | bool) and (zabbix_agent_jmx_listenport | bool)
 
 - name: "Configure firewalld (zabbix_agent_listenport)"
@@ -131,7 +131,7 @@
     rich_rule: 'rule family="ipv4" source address="{{ zabbix_agent_firewalld_source }}" port protocol="tcp" port="{{ zabbix_agent_listenport }}" accept'
     permanent: true
     state: enabled
-  become: yes
+  become: true
   when: zabbix_agent_firewalld_enable | bool
   notify:
     - firewalld-reload
@@ -142,7 +142,7 @@
     rich_rule: 'rule family="ipv4" source address="{{ zabbix_agent_firewalld_source }}" port protocol="tcp" port="{{ zabbix_agent_jmx_listenport }}" accept'
     permanent: true
     state: enabled
-  become: yes
+  become: true
   when: (zabbix_agent_firewalld_enable | bool) and (zabbix_agent_jmx_listenport | bool)
   notify:
     - firewalld-reload
@@ -152,8 +152,8 @@
   service:
     name: "{{ zabbix_agent_service }}"
     state: started
-    enabled: yes
-  become: yes
+    enabled: true
+  become: true
   when:
     - not (zabbix_agent_docker | bool)
   tags:

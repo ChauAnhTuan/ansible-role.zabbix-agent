@@ -8,7 +8,7 @@
     group: zabbix
     mode: 0644
   notify: restart zabbix-agent
-  become: yes
+  become: true
   with_items: "{{ zabbix_agent_userparameters }}"
 
 - name: "Installing user-defined scripts"
@@ -19,6 +19,6 @@
     group: zabbix
     mode: 0755
   notify: restart zabbix-agent
-  become: yes
+  become: true
   with_items: "{{ zabbix_agent_userparameters }}"
   when: item.scripts_dir is defined
