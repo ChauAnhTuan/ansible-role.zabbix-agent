@@ -35,7 +35,7 @@
       changed_when: false
 
   roles:
-    - role: ansible_role_repo_epel
+    - role: chauanhtuandl.repo_epel
       when: ansible_os_family == 'RedHat'
-    - role: ansible_role_pip
+    - role: chauanhtuandl.pip
     - role: chauanhtuandl.zabbix-agent
