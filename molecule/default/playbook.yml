@@ -35,7 +35,4 @@
       changed_when: false
 
   roles:
-    - role: ansible-role.pip
-      pip_install_packages:
-        netaddr
     - role: ansible-role.zabbix-agent
