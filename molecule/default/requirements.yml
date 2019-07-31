@@ -1,3 +1,3 @@
 ---
 - name: common
-  src: git+https://github.com/chauanhtuandl/ansible-role.pip.git
+  src: chauanhtuandl.ansible_role_pip
